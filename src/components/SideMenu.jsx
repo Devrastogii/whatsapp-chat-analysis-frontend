@@ -7,17 +7,27 @@ const SideMenu = () => {
 
   const [gpOption, setGpOption] = useState(false)
   const { uploadFile } = useFileContext()
+  const [name, storeName] = useState([])
+  const [file, setFile] = useState('')
+
+  const formData = new FormData();
 
   const handleFile = async (e) => {
-    let file = e.target.files[0]
-    console.log(file);
+    let f = e.target.files[0]
+    setFile(f)
 
-    const formData = new FormData();
-    formData.append('file', file);
+    let op = 'overall'
+    formData.append('file', f);
+    formData.append('op', op)    
 
-    const res = await axios.post('/file-data', formData)
-    console.log(res.data);
+    const res = await axios.post('/file-data', formData, {
+        headers: {
+          'Content-Type': 'multipart/form-data',
+        },
+      })
+
     uploadFile(res.data)
+    storeName(res.data.name)
   }
 
   const handleSelect = (e) => {
@@ -30,6 +40,21 @@ const SideMenu = () => {
     }
   }
 
+  const handleGroupContacts = async (e) => {
+    formData.append('file', file);
+
+    let v = e.target.value
+    formData.append('op', v);
+
+    const res = await axios.post('/file-data', formData, {
+        headers: {
+          'Content-Type': 'multipart/form-data',
+        },
+      })
+
+    uploadFile(res.data);
+  }
+
   return (
     <>
         <div className='px-6'>
@@ -40,11 +65,6 @@ const SideMenu = () => {
             <div className='mt-[2.8rem]'>
                 <form method='post'>
 
-                    {/* <Select placeholder='Select Chat Option' className='bg-black' color={'white'} width={'80%'}>
-                        <option value='friend'>Friend Chat</option>
-                        <option value='group'>Group Chat</option>                       
-                    </Select> */}
-
                     <select className='w-[80%] h-8 pl-2' onChange={handleSelect}>
                         <option>Select Chat Option</option>                    
                         <option value='friend'>Friend Chat</option>
@@ -52,10 +72,15 @@ const SideMenu = () => {
                     </select>
 
                     {gpOption && <>
-                        <select className='w-[80%] h-8 pl-2 mt-2' onChange={handleSelect}>
-                        <option>Select Name</option>                    
-                        <option value='friend'>Friend Chat</option>
-                        <option value='group'>Group Chat</option>
+                        <select className='w-[80%] h-8 pl-2 mt-2' onChange={handleGroupContacts}>
+                        <option value='overall'>Overall Analysis</option>  
+
+                        {name.map((v, i) => {
+                            return (
+                                <option value={v}>{v}</option>  
+                            )
+                        })}
+
                     </select>
                     </>}                    
 
