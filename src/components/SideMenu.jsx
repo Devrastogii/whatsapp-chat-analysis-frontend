@@ -1,10 +1,12 @@
 import React, { useState } from 'react'
 import { Select } from '@chakra-ui/react'
 import axios from 'axios'
+import { useFileContext } from './FileContext'
 
 const SideMenu = () => {
-    
+
   const [gpOption, setGpOption] = useState(false)
+  const { uploadFile } = useFileContext()
 
   const handleFile = async (e) => {
     let file = e.target.files[0]
@@ -14,7 +16,8 @@ const SideMenu = () => {
     formData.append('file', file);
 
     const res = await axios.post('/file-data', formData)
-    console.log(res);
+    console.log(res.data);
+    uploadFile(res.data)
   }
 
   const handleSelect = (e) => {

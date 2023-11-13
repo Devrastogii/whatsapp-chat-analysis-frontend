@@ -1,3 +1,4 @@
+import { FileProvider } from "./components/FileContext";
 import MainMenu from "./components/MainMenu";
 import SideMenu from "./components/SideMenu";
 import axios from "axios";
@@ -8,6 +9,7 @@ axios.defaults.withCredentials = true
 function App() {
   return (
     <>
+    <FileProvider>
     <section className="bg-[#171717] h-screen">
       <div className="flex pt-8">
         <div className="w-1/4 border-white border-[1px] border-l-0 border-b-0 border-t-0 h-screen">
@@ -18,6 +20,7 @@ function App() {
         </div>
       </div>
     </section>
+    </FileProvider>
     </>
   );
 }
