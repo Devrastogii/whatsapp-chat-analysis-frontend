@@ -1,7 +1,18 @@
-import React from 'react'
+import React, { useEffect } from 'react'
 import ActiveUsers from './Statistics/ActiveUsers'
+import axios from 'axios'
 
 const MainMenu = () => {
+
+  useEffect(() => {
+    async function getData(){
+        const res = await axios.get('/get-data')
+        console.log(res);
+    }    
+
+    getData()
+  }, [])
+
   return (
     <>
         <section>
