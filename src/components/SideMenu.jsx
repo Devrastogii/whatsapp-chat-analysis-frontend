@@ -5,7 +5,7 @@ import { useFileContext } from './FileContext'
 
 const SideMenu = () => {
 
-  const [gpOption, setGpOption] = useState(false)
+  const [gpOption, setGpOption] = useState(true)
   const { uploadFile } = useFileContext()
   const [name, storeName] = useState([])
   const [file, setFile] = useState('')
@@ -65,10 +65,9 @@ const SideMenu = () => {
             <div className='mt-[2.8rem]'>
                 <form method='post'>
 
-                    <select className='w-[80%] h-8 pl-2' onChange={handleSelect}>
-                        <option>Select Chat Option</option>                    
-                        <option value='friend'>Friend Chat</option>
+                    <select className='w-[80%] h-8 pl-2' onChange={handleSelect}>                                   
                         <option value='group'>Group Chat</option>
+                        <option value='friend'>Friend Chat</option>
                     </select>
 
                     {gpOption && <>

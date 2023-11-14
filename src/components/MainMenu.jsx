@@ -27,7 +27,7 @@ const MainMenu = () => {
 
                 <div className='w-[17rem] h-[8rem] rounded-lg border-2 flex flex-col bg-blue-300 font-semibold p-4'>
                     <div>Total Links Shared</div>
-                    <div className='mt-5 font-bold text-2xl'>0 Links</div>
+                    <div className='mt-5 font-bold text-2xl'>{fileContent?.link ? fileContent.link : <span>0</span>} Links</div>
                 </div>
             </div>
 
