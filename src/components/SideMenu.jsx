@@ -1,11 +1,9 @@
 import React, { useState } from 'react'
-import { Select } from '@chakra-ui/react'
 import axios from 'axios'
 import { useFileContext } from './FileContext'
 
 const SideMenu = () => {
 
-  const [gpOption, setGpOption] = useState(true)
   const { uploadFile } = useFileContext()
   const [name, storeName] = useState([])
   const [file, setFile] = useState('')
@@ -30,20 +28,11 @@ const SideMenu = () => {
     storeName(res.data.name)
   }
 
-  const handleSelect = (e) => {
-    if(e.target.value == 'group') {
-        setGpOption(true)
-    }
-
-    else {
-        setGpOption(false)
-    }
-  }
-
   const handleGroupContacts = async (e) => {
     formData.append('file', file);
 
-    let v = e.target.value
+    let v = e.target.value    
+
     formData.append('op', v);
 
     const res = await axios.post('/file-data', formData, {
@@ -63,15 +52,8 @@ const SideMenu = () => {
             <div className='text-2xl text-white font-bold mt-1'>Analysis Tool</div>
 
             <div className='mt-[2.8rem]'>
-                <form method='post'>
-
-                    <select className='w-[80%] h-8 pl-2' onChange={handleSelect}>                                   
-                        <option value='group'>Group Chat</option>
-                        <option value='friend'>Friend Chat</option>
-                    </select>
-
-                    {gpOption && <>
-                        <select className='w-[80%] h-8 pl-2 mt-2' onChange={handleGroupContacts}>
+                <form method='post'>                 
+                        <select className='w-[80%] h-8 pl-2 mt-1' onChange={handleGroupContacts}>
                         <option value='overall'>Overall Analysis</option>  
 
                         {name.map((v, i) => {
@@ -80,8 +62,7 @@ const SideMenu = () => {
                             )
                         })}
 
-                    </select>
-                    </>}                    
+                    </select>                                  
 
                     <div className='w-3/4 flex justify-center'>                   
 

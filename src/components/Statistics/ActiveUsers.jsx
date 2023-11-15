@@ -25,7 +25,7 @@ const ActiveUsers = ({ labels, data }) => {
   return (
     <>
         <div>
-            <div className='text-white text-3xl font-bold'>Statistics</div>            
+            <div className='text-white text-3xl font-bold'>Most Active Users</div>            
             <hr className='mt-3' />   
 
             <div className='flex justify-around mt-10'>
