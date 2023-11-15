@@ -1,7 +1,7 @@
-import React from "react";
+import React, { useState } from 'react'
 import { Chart } from "react-google-charts";
 
-const Emoji = ({ labels, data }) => {
+const Months = ({ labels, data }) => {
 
   if (!labels || !data || labels.length === 0 || data.length === 0) {
     return null;
@@ -21,25 +21,26 @@ const Emoji = ({ labels, data }) => {
 
   return (
     <>
-      <div>
-        <div className="text-white text-3xl font-bold">Most Used Emojis</div>
+        <div>
+        <div className="text-white text-3xl font-bold">Most Active Months</div>
         <hr className="mt-3" />
 
-        <Chart
+    <Chart
           width={"100%"}
           height={"400px"}
-          chartType="PieChart"
+          chartType="LineChart"
           loader={<div>Loading Chart</div>}
           data={chartData}
-          options={{
-            is3D: true,
+          options={{              
+            series: [{ color: "#E7711B" }],    
           }}
           rootProps={{ "data-testid": "1" }}
           className="mt-10"
         />
+        
       </div>
     </>
-  );
-};
+  )
+}
 
-export default Emoji;
+export default Months

@@ -1,59 +1,26 @@
-import React, { useState } from 'react'
+import React from 'react'
 import { useFileContext } from '../FileContext'
-import Chart from 'react-apexcharts'
+import { Chart } from "react-google-charts";
 
-const ActiveUsers = () => {
+const ActiveUsers = ({ labels, data }) => {
 
   const { fileContent } = useFileContext()
-  const [name, setName] = useState(fileContent?.activeNames)
 
-  const [state, setState] = useState({
-    options: {
-      chart: {
-        id: "basic-bar",
-      },
-      title: {
-        text: "Most Active Users",
-        align: "center",  
-        style: {
-          color: "#fff"        
-        }     
-      },
-      xaxis: {
-        categories: fileContent?.activeNames,  
-        labels: {
-          style: {
-            colors: "#fff",
-          },
-        }, 
-        title: {
-          text: "Contact Names",
-          style: {
-            color: "#fff"        
-          } 
-        },   
-      },  
-      yaxis: {             
-        labels: {
-          style: {
-            colors: "#fff",
-          },
-        },
-        title: {
-          text: "Number of Messages",
-          style: {
-            color: "#fff",             
-          }   
-        },   
-      },    
-    },
-    series: [
-      {
-        name: "Number of Messages",
-        data: fileContent?.activeValues,
-      },
-    ],    
-  })
+  if (!labels || !data || labels.length === 0 || data.length === 0) {
+    return null;
+  }
+
+  const formatChartData = () => {
+    const chartData = [["Label", "Data"]];
+    if (labels && data && labels.length === data.length) {
+      labels.forEach((label, index) => {
+        chartData.push([label, data[index]]);
+      });
+    }
+    return chartData;
+  };
+
+  const chartData = formatChartData();
 
   return (
     <>
@@ -62,13 +29,18 @@ const ActiveUsers = () => {
             <hr className='mt-3' />   
 
             <div className='flex justify-around mt-10'>
-                <div>
+                <div>           
                   <Chart
-                  options={state.options}
-                  series={state.series}
-                  type='bar'
-                  width="500"    
-                  />   
+      width={'100%'}
+      height={'400px'}
+      chartType="ColumnChart"
+      loader={<div>Loading Chart</div>}
+      data={chartData}
+      options={{
+        title: '',
+      }}
+      rootProps={{ 'data-testid': '1' }}
+    />
                 </div>
 
                 <div>
@@ -86,15 +58,15 @@ const ActiveUsers = () => {
               return (
                 <>
                 <tr className='text-center'>
-                  {/* <td className='px-2 py-3'>{name[i]}</td> */}
-                  <td className='px-2 py-3'><div className='text-white'>{v.toFixed(2)}%</div></td>
+                   <td className='px-2 py-3'>{fileContent?.activeNames?.[i]}</td> 
+                   <td className='px-2 py-3'><div className='text-white'>{v.toFixed(2)}%</div></td>
                 </tr>                  
                 </>
               )
             })}             
           
         </tbody>
-        </table> 
+        </table>
                 </div>
             </div>                                        
                                   

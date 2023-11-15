@@ -1,12 +1,14 @@
-import React from 'react'
+import React, { useEffect, useState } from 'react'
 import ActiveUsers from './Statistics/ActiveUsers'
 import { useFileContext } from './FileContext'
 import WordCloud from './Statistics/WordCloud'
 import Emoji from './Statistics/Emoji'
+import Months from './Statistics/Months'
 
 const MainMenu = () => {
 
   const { fileContent } = useFileContext()
+  const [imageSrc, setImageSrc] = useState('');
 
   return (
     <>
@@ -34,7 +36,7 @@ const MainMenu = () => {
             </div>
 
             <div className='p-10'>
-                <ActiveUsers />
+                <ActiveUsers data={fileContent?.activeValues} labels={fileContent?.activeNames} />
             </div>
 
             <div className='p-10'>
@@ -43,6 +45,10 @@ const MainMenu = () => {
 
             <div className='p-10'>
                 <Emoji labels={fileContent?.emoji} data={fileContent?.number} />
+            </div>
+
+            <div className='p-10'>
+                <Months labels={fileContent?.monthName} data={fileContent?.monthValues} />
             </div>
         </section>
     </>    
