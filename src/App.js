@@ -10,9 +10,9 @@ function App() {
   return (
     <>
     <FileProvider>
-    <section className="bg-[#171717] h-[200vh]">
+    <section className="bg-[#171717] h-[400vh]">
       <div className="flex pt-8">
-        <div className="w-1/4 border-white border-[1px] border-l-0 border-b-0 border-t-0 h-[200vh]">
+        <div className="w-1/4 border-white border-[1px] border-l-0 border-b-0 border-t-0 h-[400vh]">
             <SideMenu />
         </div>
         <div className="w-3/4">

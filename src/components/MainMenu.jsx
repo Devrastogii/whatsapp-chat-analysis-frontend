@@ -1,6 +1,8 @@
 import React from 'react'
 import ActiveUsers from './Statistics/ActiveUsers'
 import { useFileContext } from './FileContext'
+import WordCloud from './Statistics/WordCloud'
+import Emoji from './Statistics/Emoji'
 
 const MainMenu = () => {
 
@@ -33,6 +35,14 @@ const MainMenu = () => {
 
             <div className='p-10'>
                 <ActiveUsers />
+            </div>
+
+            <div className='p-10'>
+                <WordCloud />
+            </div>
+
+            <div className='p-10'>
+                <Emoji labels={fileContent?.emoji} data={fileContent?.number} />
             </div>
         </section>
     </>    
